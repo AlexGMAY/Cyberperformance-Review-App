@@ -48,7 +48,7 @@ const Dashboard = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="bg-gray-100">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="p-6 bg-cyan-800 rounded shadow-md">
         {/* Metrics Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

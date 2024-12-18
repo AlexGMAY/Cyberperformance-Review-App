@@ -83,8 +83,8 @@ const Reviews = () => {
   const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
 
   return (
-    <div className="bg-gray-100">
-      <h1 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 border-gray-200 p-4">Review Management</h1>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <h1 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 rounded-md border-gray-200 p-4">Review Management</h1>
 
       {/* Filters */}
       <div className="bg-cyan-800 p-6 rounded-md mb-6">

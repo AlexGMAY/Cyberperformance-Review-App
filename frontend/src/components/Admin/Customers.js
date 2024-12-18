@@ -161,8 +161,8 @@ const Customers = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="bg-gray-100">
-      <h1 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 border-gray-200 p-4">Customers Management</h1>      
+    <div className="min-h-screen bg-gray-50 p-6">
+      <h1 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 rounded-md border-gray-200 p-4">Customers Management</h1>      
       <div className="flex justify-between items-center mb-4">
         <input
           type="text"
@@ -173,7 +173,7 @@ const Customers = () => {
         />
         <button
           onClick={() => setModalVisible(true)}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded"
         >
           Add Customer
         </button>
@@ -193,7 +193,7 @@ const Customers = () => {
       </div>
       <table className="w-full table-auto bg-white shadow-md rounded overflow-hidden">
         <thead>
-          <tr className="bg-blue-500 text-white">
+          <tr className="bg-cyan-600 text-white uppercase text-sm">
             <th className="p-4 text-left cursor-pointer" onClick={() => handleSort("name")}>
               Name {sortConfig.key === "name" && (sortConfig.direction === "asc" ? "↑" : "↓")}</th>
             <th className="p-4 text-left cursor-pointer" onClick={() => handleSort("email")}>
@@ -279,8 +279,8 @@ const Customers = () => {
               </select>
             </form>
             <div className="flex justify-end space-x-4 mt-4">
-              <button onClick={() => setModalVisible(false)} className="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-              <button onClick={handleCreateOrUpdate} className="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
+              <button onClick={() => setModalVisible(false)} className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">Cancel</button>
+              <button onClick={handleCreateOrUpdate} className="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded">Save</button>
             </div>
           </div>
         </div>
@@ -288,7 +288,7 @@ const Customers = () => {
 
       {/* BULK UPLOAD CUSTOMERS TO A CLIENT WITH A CSV FILE */}
       <div className="mt-8">
-        <h2 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 border-gray-200 p-4">
+        <h2 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 rounded-md border-gray-200 p-4">
           Bulk Upload Customers
         </h2>      
         <form 
@@ -334,7 +334,7 @@ const Customers = () => {
 
           <button 
             type="submit" 
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
+            className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded w-full"
           >
             Upload
           </button>

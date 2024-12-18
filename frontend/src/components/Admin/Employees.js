@@ -95,7 +95,7 @@ const Employees = () => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 border-gray-200 p-4">Employees Management</h2>
+      <h2 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 rounded-md border-gray-200 p-4">Employees Management</h2>
 
       <div className="mb-4 flex items-center justify-between">
         <input
@@ -110,7 +110,7 @@ const Employees = () => {
             setCurrentEmployee(null);
             setShowModal(true);
           }}
-          className="px-4 py-2 bg-blue-600 text-white rounded"
+          className="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600"
         >
           Register Employee
         </button>
@@ -126,7 +126,7 @@ const Employees = () => {
             <strong>Total Employees: </strong>{filteredEmployees.length}
           </div>
           <table className="w-full mt-4 border-collapse border border-gray-300 bg-white shadow-lg rounded-lg">
-            <thead className="bg-blue-500 text-white text-left">
+            <thead className="bg-cyan-600 text-white uppercase text-sm text-left">
               <tr>              
                 <th className=" px-4 p-2">Name</th>
                 <th className=" px-4 p-2">Email</th>

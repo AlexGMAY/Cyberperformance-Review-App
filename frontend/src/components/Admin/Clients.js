@@ -247,8 +247,8 @@ const Clients = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="bg-gray-100">
-      <h1 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 border-gray-200 p-4">Clients Management</h1>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <h1 className="text-2xl bg-white font-bold mt-8 mb-8 border-2 rounded-md border-gray-200 p-4">Clients Management</h1>
 
       <div className="flex justify-between items-center mb-4">
         <input
@@ -273,7 +273,7 @@ const Clients = () => {
         </button>
           <button
             onClick={toggleModal}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-cyan-500 text-white px-4 py-2 rounded hover:bg-cyan-600"
           >
             Register a new client
           </button>          
@@ -282,7 +282,7 @@ const Clients = () => {
 
       <div className="bg-white shadow-lg rounded-lg overflow-x-auto mb-20">
         <table className="w-full table-auto border-collapse text-left">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-cyan-600 text-white uppercase text-sm">
             <tr>
               <th className=" px-4 py-2 cursor-pointer" onClick={() => handleSort("businessName")}>
                 Business Name
@@ -307,7 +307,7 @@ const Clients = () => {
                 <td className="border px-4 py-2 text-center">
                   <button
                     onClick={() => handleViewDetails(client)}
-                    className="p-2 text-blue-500 hover:text-blue-700"
+                    className="p-2 text-cyan-500 hover:text-cyan-700"
                   >
                     <FaEye />
                   </button>
@@ -337,7 +337,7 @@ const Clients = () => {
                 key={index}
                 onClick={() => setCurrentPage(index + 1)}
                 className={`mx-1 px-3 py-1 ${
-                  currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200"
+                  currentPage === index + 1 ? "bg-cyan-500 text-white" : "bg-gray-200"
                 } rounded hover:bg-blue-400`}
               >
                 {index + 1}
@@ -404,7 +404,7 @@ const Clients = () => {
             <div className="flex justify-between">
               <button
                 onClick={handleCreateOrUpdate}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                className="bg-cyan-500 text-white px-4 py-2 rounded hover:bg-cyan-600"
               >
                 Save
               </button>
