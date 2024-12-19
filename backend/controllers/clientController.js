@@ -168,20 +168,28 @@ exports.addCustomer = async (req, res) => {
 
 // Get customers for a specific client
 exports.getCustomersByClientId = async (req, res) => {
-  const { clientId } = req.params;
+  // const { clientId } = req.params;
 
+  // try {
+  //   // Fetch customers associated with the clientId
+  //   const customers = await Customer.find({ client: clientId }); // Adjust according to your schema
+
+  //   if (!customers) {
+  //     return res.status(404).json({ message: 'No customers found for this client.' });
+  //   }
+
+  //   return res.status(200).json(customers);
+  // } catch (error) {
+  //   console.error('Error fetching customers:', error);
+  //   return res.status(500).json({ message: 'Server error' });
+  // }
   try {
-    // Fetch customers associated with the clientId
-    const customers = await Customer.find({ client: clientId }); // Adjust according to your schema
-
-    if (!customers) {
-      return res.status(404).json({ message: 'No customers found for this client.' });
-    }
-
-    return res.status(200).json(customers);
-  } catch (error) {
-    console.error('Error fetching customers:', error);
-    return res.status(500).json({ message: 'Server error' });
+    const { clientId } = req.params;
+    const customers = await Customer.find({ client: clientId }); // Assuming `client` is a reference field
+    res.json({ success: true, customers });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch customers', error: err.message });
   }
 };
 

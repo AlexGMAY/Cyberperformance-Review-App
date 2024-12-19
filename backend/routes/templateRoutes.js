@@ -12,7 +12,8 @@ router.post('/global', async (req, res) => {
     await newTemplate.save();
     res.status(201).json(newTemplate);
   } catch (error) {
-    res.status(500).json({ error: 'Error creating global template' });
+    console.error('Error creating global template:', error); // Log detailed error
+    res.status(500).json({ error: 'Error creating global template', details: error.message });
   }
 });
 

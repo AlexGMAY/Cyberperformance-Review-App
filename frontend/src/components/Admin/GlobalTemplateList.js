@@ -27,6 +27,7 @@ const GlobalTemplateList = ({ onEdit }) => {
   // Handle adding a new template
   const handleCreate = async (templateData) => {
     try {
+      console.log("Template Data : ", templateData);
       await createGlobalTemplate(templateData);
       fetchTemplates();
       setShowForm(false);
@@ -111,7 +112,7 @@ const GlobalTemplateList = ({ onEdit }) => {
                         <td className="py-3 px-4 truncate">{template.content}</td>
                         <td className="py-3 px-4 flex justify-center space-x-3">
                             <button
-                            onClick={() => onEdit(handleEdit)}
+                            onClick={() => handleEdit(template._id)}
                             className="text-blue-600 hover:text-blue-800 font-medium"
                             >
                             Edit

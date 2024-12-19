@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ReviewRequests = () => {
   const [reviewRequests, setReviewRequests] = useState([]);
@@ -50,47 +52,65 @@ const ReviewRequests = () => {
     fetchClients();
   }, []);
 
-  // Fetch customers based on selected client
-  const handleClientChange = async (clientId) => {
-    setNewRequest({ ...newRequest, clientId });
-    setCustomers([]); // Clear previous customers
-
-    if (!clientId) return;
-
+  // Fetch customers for the selected client
+  const fetchCustomers = async (clientId) => {
     try {
-      const response = await axios.get(`http://localhost:5520/api/customers/${clientId}`, {
+      const res = await axios.get(`http://localhost:5520/api/clients/${clientId}/customers`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      setCustomers(response.data.data);
+      setCustomers(res.data.customers || []);
     } catch (err) {
       console.error('Error fetching customers:', err);
+    }
+  };
+
+  // Handle client selection
+  const handleClientChange = (clientId) => {
+    setNewRequest({ ...newRequest, clientId, customerId: '' }); // Clear customerId when client changes
+    if (clientId) {
+      fetchCustomers(clientId); // Fetch associated customers
+    } else {
+      setCustomers([]); // Clear customers if no client selected
     }
   };
 
   // Handle filter changes
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
-  };
+  };  
 
-  // Handle form input changes for new request
-  const handleNewRequestChange = (e) => {
-    setNewRequest({ ...newRequest, [e.target.name]: e.target.value });
-  };
-
-  // Schedule or update review request
+  // Create and Update
   const handleScheduleRequest = async () => {
     try {
+      // Validate request fields
+      if (!newRequest.clientId || !newRequest.customerId) {
+        alert('Please select both a client and a customer.');
+        return;
+      }
+      if (!newRequest.scheduledTime || !newRequest.message) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+  
+      // Determine endpoint and method
       const url = editingRequestId
         ? `http://localhost:5520/api/admin-review-requests/${editingRequestId}`
         : 'http://localhost:5520/api/admin-review-requests';
       const method = editingRequestId ? 'put' : 'post';
-
+  
+      // Debugging payload
+      console.log('Request Payload:', newRequest);
+  
+      // Send request
       await axios[method](url, newRequest, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-
-      alert(editingRequestId ? 'Review request updated successfully!' : 'Review request scheduled successfully!');
+  
+      // Success message
+      toast.success(editingRequestId ? 'Review request updated successfully!' : 'Review request scheduled successfully!');
       setShowScheduleModal(false);
+  
+      // Reset form and refresh data
       setNewRequest({
         clientId: '',
         customerId: '',
@@ -102,9 +122,10 @@ const ReviewRequests = () => {
       fetchReviewRequests();
     } catch (err) {
       console.error('Error scheduling review request:', err);
-      alert('Failed to schedule review request.');
+      toast.error(err.response?.data?.message || 'Failed to schedule review request. Please try again later.');
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -209,26 +230,29 @@ const ReviewRequests = () => {
             <div className="mb-2">
               <label className="block text-sm font-medium">Customer</label>
               <select
-                name="customerId"
-                value={newRequest.customerId}                
-                onChange={handleNewRequestChange}
+                  name="customerId"
+                  value={newRequest.customerId}
+                  onChange={(e) =>
+                    setNewRequest({ ...newRequest, customerId: e.target.value })
+                  }
+                  disabled={!newRequest.clientId} // Disable if no client selected
                   className="border p-2 rounded w-full"
                 >
                   <option value="">Select a Customer</option>
-                  {customers.map((customer) => (
+                  {(customers || []).map((customer) => (
                     <option key={customer._id} value={customer._id}>
                       {customer.name}
                     </option>
                   ))}
-                </select>
-              </div>
+              </select>
+             </div>
   
               <div className="mb-2">
                 <label className="block text-sm font-medium">Type</label>
                 <select
                   name="type"
                   value={newRequest.type}
-                  onChange={handleNewRequestChange}
+                  onChange={(e) => setNewRequest({ ...newRequest, type: e.target.value })}
                   className="border p-2 rounded w-full"
                 >
                   <option value="email">Email</option>
@@ -242,7 +266,9 @@ const ReviewRequests = () => {
                   type="datetime-local"
                   name="scheduledTime"
                   value={newRequest.scheduledTime}
-                  onChange={handleNewRequestChange}
+                  onChange={(e) =>
+                    setNewRequest({ ...newRequest, scheduledTime: e.target.value })
+                  }
                   className="border p-2 rounded w-full"
                 />
               </div>
@@ -252,7 +278,9 @@ const ReviewRequests = () => {
                 <textarea
                   name="message"
                   value={newRequest.message}
-                  onChange={handleNewRequestChange}
+                  onChange={(e) =>
+                    setNewRequest({ ...newRequest, message: e.target.value })
+                  }
                   className="border p-2 rounded w-full"
                   rows="3"
                 ></textarea>
@@ -264,7 +292,9 @@ const ReviewRequests = () => {
                   type="url"
                   name="reviewLink"
                   value={newRequest.reviewLink}
-                  onChange={handleNewRequestChange}
+                  onChange={(e) =>
+                    setNewRequest({ ...newRequest, reviewLink: e.target.value })
+                  }
                   className="border p-2 rounded w-full"
                 />
               </div>
@@ -297,6 +327,7 @@ const ReviewRequests = () => {
             </div>
           </div>
         )}
+        <ToastContainer />
       </div>
     );
   };
