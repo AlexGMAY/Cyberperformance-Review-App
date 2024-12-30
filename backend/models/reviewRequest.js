@@ -19,7 +19,7 @@ const reviewRequestSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['sent', 'scheduled', 'failed'],
+    enum: ['sent', 'scheduled', 'failed',],
     default: 'scheduled'
   },
   scheduledTime: {

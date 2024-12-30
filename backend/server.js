@@ -10,7 +10,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 const scheduleReviewRequests = require('./services/scheduler');
-const processReviewRequests = require('./services/adminScheduler');
+// const processReviewRequests = require('./services/adminScheduler');
 const smsStatus = require('./routes/smsStatus');
 const responseRoutes = require('./routes/responseRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
@@ -101,6 +101,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   // Start the schedulers
-  scheduleReviewRequests();
-  processReviewRequests();
+  scheduleReviewRequests();  
 });

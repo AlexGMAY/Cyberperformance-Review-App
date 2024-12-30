@@ -30,7 +30,7 @@ const ReviewRequests = () => {
     } catch (err) {
       console.error('Error fetching review requests:', err);
     }
-  };
+  }; 
 
   useEffect(() => {
     fetchReviewRequests();

@@ -43,7 +43,7 @@ const GlobalTemplateList = ({ onEdit }) => {
       await updateGlobalTemplate(templateData._id, templateData);
       fetchTemplates();
       setShowForm(false);
-      setSelectedTemplate(null);
+      setSelectedTemplate();
     } catch (error) {
       console.error('Error updating template:', error);
     }
