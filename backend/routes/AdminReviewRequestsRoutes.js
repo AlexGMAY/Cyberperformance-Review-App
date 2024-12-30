@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
       console.error(err);
       res.status(500).json({ success: false, message: 'Failed to fetch review requests', error: err.message });
     }
-  });
+});
   
   // Create a new review request
   router.post('/', async (req, res) => {
